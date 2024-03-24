@@ -127,9 +127,9 @@ int parentesisBalanceados(char *cadena) {
         if (cadena[i] == '(') {
             push(pila, &cadena[i]);
         } else if (cadena[i] == ')') {
-            if (is_empty(pila)) {
-                free(pila);
-                return 0;
+            while (top(P1) != NULL) {
+                void *dato = pop(P1);
+                push(aux, dato);
             }
             pop(pila);
         }

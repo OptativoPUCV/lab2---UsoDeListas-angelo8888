@@ -38,3 +38,22 @@ exercises.c:130:17: error: implicit declaration of function ‘is_empty’ [-Wer
 cc1: all warnings being treated as errors
 Compilation failed
 a8140ab
+Sun 24 Mar 2024 12:20:24 AM UTC: 
+ exercises.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+In file included from test.c:5:
+exercises.c: In function ‘parentesisBalanceados’:
+exercises.c:130:24: error: ‘P1’ undeclared (first use in this function); did you mean ‘y1’?
+  130 |             while (top(P1) != NULL) {
+      |                        ^~
+      |                        y1
+exercises.c:130:24: note: each undeclared identifier is reported only once for each function it appears in
+exercises.c:132:22: error: ‘aux’ undeclared (first use in this function)
+  132 |                 push(aux, dato);
+      |                      ^~~
+exercises.c:138:23: error: implicit declaration of function ‘is_empty’ [-Werror=implicit-function-declaration]
+  138 |     int balanceados = is_empty(pila);
+      |                       ^~~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+2cb9245
