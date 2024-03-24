@@ -100,9 +100,22 @@ El orden de ambas pilas se debe mantener.
 Puedes usar una pila auxiliar.
 */
 
-void copia_pila(Stack* P1, Stack* P2) {
-}
+void copia_pila(Stack *P1, Stack *P2) {
+    Stack *aux = create_stack();
 
+    while (!is_empty(P1)) {
+        void *dato = pop(P1);
+        push(aux, dato);
+    }
+
+    while (!is_empty(aux)) {
+        void *dato = pop(aux);
+        push(P2, dato);
+        push(P1, dato);
+    }
+
+    free(aux);
+}
 /*
 Ejercicio 5.
 La función verifica si la cadena de entrada tiene sus 
@@ -111,6 +124,22 @@ paraéntesis balanceados. Retorna 1 si están balanceados,
 */
 
 int parentesisBalanceados(char *cadena) {
-   return 0;
-}
+    Stack *pila = create_stack();
 
+    for (int i = 0; cadena[i] != '\0'; i++) {
+        if (cadena[i] == '(') {
+            push(pila, &cadena[i]);
+        } else if (cadena[i] == ')') {
+            if (is_empty(pila)) {
+                free(pila);
+                return 0;
+            }
+            pop(pila);
+        }
+    }
+
+    int balanceados = is_empty(pila);
+
+    free(pila);
+    return balanceados;
+}
