@@ -121,32 +121,41 @@ paraéntesis balanceados. Retorna 1 si están balanceados,
 */
 
 
+
 int parentesisBalanceados(char *cadena) {
     Stack *pila = create_stack();
+    char *ptr = cadena;
 
-    for (int i = 0; cadena[i] != '\0'; i++) {
-        if (cadena[i] == '(' || cadena[i] == '[' || cadena[i] == '{') {
-            push(pila, &cadena[i]);
-        }
-        else if (cadena[i] == ')' || cadena[i] == ']' || cadena[i] == '}') {
+    while (*ptr != '\0') {
+        if (*ptr == '(' || *ptr == '[' || *ptr == '{') {
+            push(pila, ptr);
+        } else if (*ptr == ')' || *ptr == ']' || *ptr == '}') {
             if (top(pila) == NULL) {
                 free(pila);
                 return 0;
+            } else {
+                char *top_char = (char *)top(pila);
+                if ((*ptr == ')' && *top_char == '(') ||
+                    (*ptr == ']' && *top_char == '[') ||
+                    (*ptr == '}' && *top_char == '{')) {
+                    pop(pila);
+                } else {
+                    free(pila);
+                    return 0; 
+                  
+                }
             }
-            char *ultimo_abierto = (char *)pop(pila);
-            if ((cadena[i] == ')' && *ultimo_abierto != '(') ||
-                (cadena[i] == ']' && *ultimo_abierto != '[') ||
-                (cadena[i] == '}' && *ultimo_abierto != '{')) {
-                free(ultimo_abierto);
-                free(pila);
-                return 0;
-            }
-            free(ultimo_abierto);
         }
+        ptr++;
     }
 
-    int balanceados = (top(pila) == NULL) ? 1 : 0;
-    free(pila);
 
-    return balanceados;
+  
+    if (top(pila) != NULL) {
+        free(pila);
+        return 0;
+    }
+
+    free(pila);
+    return 1;
 }
